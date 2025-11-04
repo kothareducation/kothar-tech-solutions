@@ -19,6 +19,7 @@ export function Contact() {
     phone: "",
     subject: "",
     message: "",
+    timestamp: new Date().toISOString(),
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
@@ -48,6 +49,7 @@ export function Contact() {
           subject: formData.subject,
           message: formData.message,
           to_email: "info@kotharedu.com",
+          timestamp: new Date().toLocaleTimeString(),
         },
         publicKey
       );
