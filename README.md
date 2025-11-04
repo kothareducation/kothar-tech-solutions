@@ -92,7 +92,7 @@ A modern, responsive corporate website for **Kothar Tech Solutions** - a softwar
 
 ### Additional Libraries
 
-- **[Resend](https://resend.com/)** - Email delivery service
+- **[EmailJS](https://www.emailjs.com/)** - Client-side email delivery service
 - **[Geist Font](https://vercel.com/font)** - Modern font family
 - **[Vercel Analytics](https://vercel.com/analytics)** - Web analytics
 
@@ -160,16 +160,19 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 Create a `.env.local` file in the root directory:
 
 ```env
-# Resend API Key for email functionality
-RESEND_API_KEY=re_your_api_key_here
+# EmailJS Configuration for contact form
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_xxxxxxx
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=template_xxxxxxx
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxx
 ```
 
-### Getting Your Resend API Key
+### Getting Your EmailJS Credentials
 
-1. Sign up at [resend.com](https://resend.com) (free tier: 100 emails/day)
-2. Go to **API Keys** in the dashboard
-3. Create a new API key
-4. Copy and paste it into `.env.local`
+1. Sign up at [emailjs.com](https://www.emailjs.com/) (free tier: 200 emails/month)
+2. Create a new service (connect your email)
+3. Create an email template
+4. Get your Service ID, Template ID, and Public Key
+5. Copy and paste them into `.env.local`
 
 For detailed setup instructions, see [SETUP_EMAIL.md](SETUP_EMAIL.md)
 
@@ -180,9 +183,6 @@ For detailed setup instructions, see [SETUP_EMAIL.md](SETUP_EMAIL.md)
 ```
 kothar-tech-solutions/
 ├── app/
-│   ├── api/
-│   │   └── send-email/
-│   │       └── route.ts          # Email API endpoint
 │   ├── globals.css               # Global styles
 │   ├── layout.tsx                # Root layout
 │   └── page.tsx                  # Home page (imports components)
@@ -239,30 +239,31 @@ npx tsc --noEmit     # Check TypeScript types without building
 
 ## 📧 Email Integration
 
-The contact form uses **Resend** for email delivery. When a user submits the form:
+The contact form uses **EmailJS** for email delivery. When a user submits the form:
 
-1. Form data is sent to `/api/send-email`
-2. Server validates the data
-3. Email is sent via Resend API
-4. Beautiful HTML email arrives at `info@kotharedu.com`
+1. Form data is collected in the client-side component
+2. Data is sent directly to EmailJS service
+3. EmailJS processes and sends the email via your configured email service
+4. Email arrives at `info@kotharedu.com`
+5. User receives success/error feedback
 
 ### Email Features
 
-- ✅ Branded email template (orange & teal colors)
+- ✅ Client-side email sending (no backend required)
+- ✅ Customizable email templates
 - ✅ All form fields included (name, email, phone, subject, message)
-- ✅ Reply-to set to customer's email
-- ✅ Timestamp in Australian timezone (AEST)
-- ✅ Clickable email and phone links
+- ✅ Reply-to automatically set to customer's email
+- ✅ Form validation and error handling
 - ✅ Success/error feedback to user
+- ✅ Free tier: 200 emails/month
 
-### Production Setup
+### Setup Steps
 
-For production, verify your domain in Resend and update:
-
-```typescript
-// app/api/send-email/route.ts
-from: "Kothar Tech Website <contact@kotharedu.com>", // Your verified domain
-```
+1. Create account at [emailjs.com](https://www.emailjs.com/)
+2. Set up email service (Gmail, Outlook, etc.)
+3. Create email template with variables
+4. Add credentials to `.env.local`
+5. Test your contact form!
 
 See [SETUP_EMAIL.md](SETUP_EMAIL.md) for detailed instructions.
 
@@ -276,14 +277,20 @@ See [SETUP_EMAIL.md](SETUP_EMAIL.md) for detailed instructions.
 
 1. Push your code to GitHub
 2. Import your repository in Vercel
-3. Add environment variable: `RESEND_API_KEY`
+3. Add environment variables:
+   - `NEXT_PUBLIC_EMAILJS_SERVICE_ID`
+   - `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID`
+   - `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY`
 4. Deploy!
 
 ### Deploy to Netlify
 
 1. Push your code to GitHub
 2. Connect repository in Netlify
-3. Add environment variable: `RESEND_API_KEY`
+3. Add environment variables:
+   - `NEXT_PUBLIC_EMAILJS_SERVICE_ID`
+   - `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID`
+   - `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY`
 4. Build command: `npm run build`
 5. Publish directory: `.next`
 6. Deploy!
@@ -374,7 +381,7 @@ This project is proprietary and confidential. All rights reserved by Kothar Tech
 
 - [Next.js](https://nextjs.org/) - The React Framework
 - [Shadcn/ui](https://ui.shadcn.com/) - Component Library
-- [Resend](https://resend.com/) - Email Service
+- [EmailJS](https://www.emailjs.com/) - Email Service
 - [Vercel](https://vercel.com/) - Hosting Platform
 - [Tailwind CSS](https://tailwindcss.com/) - Styling Framework
 

@@ -1,0 +1,14 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin or private pages (if any in future)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://kotharedu.com/sitemap.xml
+
+# Crawl-delay (optional, for being nice to servers)
+Crawl-delay: 1
+

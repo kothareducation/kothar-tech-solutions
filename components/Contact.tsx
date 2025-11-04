@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Mail, Phone } from "lucide-react";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -31,17 +32,27 @@ export function Contact() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      // EmailJS configuration
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: "info@kotharedu.com",
         },
-        body: JSON.stringify(formData),
-      });
+        publicKey
+      );
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (response.status === 200) {
         setSubmitStatus({
           type: "success",
           message:
@@ -57,13 +68,15 @@ export function Contact() {
       } else {
         setSubmitStatus({
           type: "error",
-          message: data.error || "Failed to send message. Please try again.",
+          message: "Failed to send message. Please try again.",
         });
       }
     } catch (error) {
+      console.error("Email sending error:", error);
       setSubmitStatus({
         type: "error",
-        message: "An error occurred. Please try again or email us directly.",
+        message:
+          "An error occurred. Please try again or email us directly at info@kotharedu.com.",
       });
     } finally {
       setIsSubmitting(false);
@@ -137,7 +150,7 @@ export function Contact() {
                       <input
                         id="email"
                         type="email"
-                        placeholder="john@example.com"
+                        placeholder="your@email.com"
                         required
                         value={formData.email}
                         onChange={handleChange}
