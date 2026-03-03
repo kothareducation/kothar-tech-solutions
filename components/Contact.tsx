@@ -51,7 +51,7 @@ export function Contact() {
           to_email: "info@kotharedu.com",
           timestamp: new Date().toLocaleTimeString(),
         },
-        publicKey
+        publicKey,
       );
 
       if (response.status === 200) {
@@ -86,7 +86,7 @@ export function Contact() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({
       ...formData,
@@ -134,7 +134,7 @@ export function Contact() {
                       <input
                         id="name"
                         type="text"
-                        placeholder="John Doe"
+                        placeholder="Your Name"
                         required
                         value={formData.name}
                         onChange={handleChange}
@@ -152,7 +152,7 @@ export function Contact() {
                       <input
                         id="email"
                         type="email"
-                        placeholder="your@email.com"
+                        placeholder="Your Email"
                         required
                         value={formData.email}
                         onChange={handleChange}
@@ -171,7 +171,7 @@ export function Contact() {
                     <input
                       id="phone"
                       type="tel"
-                      placeholder="+61 430 082 553"
+                      placeholder="Your Phone Number"
                       value={formData.phone}
                       onChange={handleChange}
                       className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ed6a06] focus-visible:ring-offset-2 transition-all"
@@ -188,7 +188,7 @@ export function Contact() {
                     <input
                       id="subject"
                       type="text"
-                      placeholder="Project inquiry"
+                      placeholder="Subject"
                       required
                       value={formData.subject}
                       onChange={handleChange}
@@ -254,10 +254,10 @@ export function Contact() {
                         Email Us
                       </p>
                       <a
-                        href="mailto:info@kotharedu.com"
+                        href="mailto:info@kothartechsolutions.com"
                         className="text-base font-semibold hover:text-[#ed6a06] transition-colors break-all"
                       >
-                        info@kotharedu.com
+                        info@kothartechsolutions.com
                       </a>
                       <p className="text-xs text-muted-foreground mt-1">
                         We'll respond within 24 hours
@@ -278,10 +278,10 @@ export function Contact() {
                         Call Us
                       </p>
                       <a
-                        href="tel:0430082553"
+                        href="tel:0435046687"
                         className="text-base font-semibold hover:text-[#63afc7] transition-colors"
                       >
-                        0430 082 553
+                        04350466876
                       </a>
                       <p className="text-xs text-muted-foreground mt-1">
                         Mon-Fri: 9AM - 6PM AEST

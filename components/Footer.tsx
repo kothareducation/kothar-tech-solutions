@@ -93,18 +93,18 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a
-                  href="mailto:info@kotharedu.com"
+                  href="mailto:info@kothartechsolutions.com"
                   className="hover:text-foreground transition-colors"
                 >
-                  info@kotharedu.com
+                  info@kothartechsolutions.com
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:0430082553"
+                  href="tel:0435046687"
                   className="hover:text-foreground transition-colors"
                 >
-                  0430 082 553
+                  04350 466 876
                 </a>
               </li>
               <li>Kothar Tech Solutions, Australia</li>
@@ -113,8 +113,8 @@ export function Footer() {
         </div>
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
           <p>
-            &copy; 2025 Kothar Tech Solutions Private Limited. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Kothar Tech Solutions Private
+            Limited. All rights reserved.
           </p>
         </div>
       </div>
