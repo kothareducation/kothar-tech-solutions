@@ -281,7 +281,7 @@ export function Contact() {
                         href="tel:0435046687"
                         className="text-base font-semibold hover:text-[#63afc7] transition-colors"
                       >
-                        04350466876
+                        0450 466 876
                       </a>
                       <p className="text-xs text-muted-foreground mt-1">
                         Mon-Fri: 9AM - 6PM AEST
