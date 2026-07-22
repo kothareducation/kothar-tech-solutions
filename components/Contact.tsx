@@ -8,9 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { Reveal } from "@/components/Reveal";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -33,12 +34,10 @@ export function Contact() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      // EmailJS configuration
       const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
       const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
       const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
-      // Send email using EmailJS
       const response = await emailjs.send(
         serviceId,
         templateId,
@@ -66,6 +65,7 @@ export function Contact() {
           phone: "",
           subject: "",
           message: "",
+          timestamp: new Date().toISOString(),
         });
       } else {
         setSubmitStatus({
@@ -94,132 +94,123 @@ export function Contact() {
     });
   };
 
-  return (
-    <section
-      id="contact"
-      className="py-24 bg-gradient-to-b from-gray-50 to-white"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-            Get In Touch
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind? We'd love to hear from you. Send us a
-            message and we'll respond within 24 hours.
-          </p>
-        </div>
+  const fieldClass =
+    "flex h-11 w-full rounded-xl border border-border bg-muted/40 px-4 py-2 text-sm transition-all placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2";
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Form */}
-          <div>
-            <Card className="border-2 shadow-lg">
+  return (
+    <section id="contact" className="relative overflow-hidden py-24">
+      <div className="pointer-events-none absolute inset-0 bg-grid-light" />
+      <div className="pointer-events-none absolute right-0 top-0 h-80 w-80 translate-x-1/3 -translate-y-1/4 rounded-full bg-cyan/10 blur-3xl" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mb-16 text-center">
+          <p className="mb-3 text-sm font-semibold tracking-[0.2em] text-orange uppercase">
+            Contact
+          </p>
+          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">
+            Get in touch
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            Have a project in mind? Send a message and we&apos;ll respond within
+            24 hours.
+          </p>
+        </Reveal>
+
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2">
+          <Reveal>
+            <Card className="border-border/80 shadow-xl shadow-ink/5">
               <CardHeader>
-                <CardTitle className="text-2xl">Send us a message</CardTitle>
+                <CardTitle className="font-display text-2xl">
+                  Send us a message
+                </CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as
-                  possible.
+                  Share your goals, timeline, and budget — we&apos;ll take it
+                  from there.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label
-                        htmlFor="name"
-                        className="text-sm font-medium leading-none"
-                      >
+                      <label htmlFor="name" className="text-sm font-medium">
                         Name *
                       </label>
                       <input
                         id="name"
                         type="text"
-                        placeholder="Your Name"
+                        placeholder="Your name"
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ed6a06] focus-visible:ring-offset-2 transition-all"
+                        className={fieldClass}
                       />
                     </div>
-
                     <div className="space-y-2">
-                      <label
-                        htmlFor="email"
-                        className="text-sm font-medium leading-none"
-                      >
+                      <label htmlFor="email" className="text-sm font-medium">
                         Email *
                       </label>
                       <input
                         id="email"
                         type="email"
-                        placeholder="Your Email"
+                        placeholder="you@company.com"
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ed6a06] focus-visible:ring-offset-2 transition-all"
+                        className={fieldClass}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label
-                      htmlFor="phone"
-                      className="text-sm font-medium leading-none"
-                    >
+                    <label htmlFor="phone" className="text-sm font-medium">
                       Phone
                     </label>
                     <input
                       id="phone"
                       type="tel"
-                      placeholder="Your Phone Number"
+                      placeholder="Your phone number"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ed6a06] focus-visible:ring-offset-2 transition-all"
+                      className={fieldClass}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label
-                      htmlFor="subject"
-                      className="text-sm font-medium leading-none"
-                    >
+                    <label htmlFor="subject" className="text-sm font-medium">
                       Subject *
                     </label>
                     <input
                       id="subject"
                       type="text"
-                      placeholder="Subject"
+                      placeholder="What are you building?"
                       required
                       value={formData.subject}
                       onChange={handleChange}
-                      className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ed6a06] focus-visible:ring-offset-2 transition-all"
+                      className={fieldClass}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label
-                      htmlFor="message"
-                      className="text-sm font-medium leading-none"
-                    >
+                    <label htmlFor="message" className="text-sm font-medium">
                       Message *
                     </label>
                     <textarea
                       id="message"
-                      placeholder="Tell us about your project requirements, timeline, and budget..."
+                      placeholder="Tell us about requirements, timeline, and budget..."
                       rows={6}
                       required
                       value={formData.message}
                       onChange={handleChange}
-                      className="flex w-full rounded-lg border border-input bg-background px-4 py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ed6a06] focus-visible:ring-offset-2 resize-none transition-all"
-                    ></textarea>
+                      className="flex w-full resize-none rounded-xl border border-border bg-muted/40 px-4 py-3 text-sm transition-all placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2"
+                    />
                   </div>
 
                   {submitStatus.type && (
                     <div
-                      className={`p-4 rounded-lg ${
+                      className={`rounded-xl p-4 text-sm ${
                         submitStatus.type === "success"
-                          ? "bg-green-50 text-green-800 border border-green-200"
-                          : "bg-red-50 text-red-800 border border-red-200"
+                          ? "border border-green-200 bg-green-50 text-green-800"
+                          : "border border-red-200 bg-red-50 text-red-800"
                       }`}
                     >
                       {submitStatus.message}
@@ -229,86 +220,70 @@ export function Contact() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full h-11 bg-[#ed6a06] hover:bg-[#d45f05] text-white text-base font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="h-12 w-full border-0 bg-orange text-base font-semibold text-white hover:bg-orange-deep disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    <Mail className="w-4 h-4 mr-2" />
-                    {isSubmitting ? "Sending..." : "Send Message"}
+                    <Mail className="mr-2 h-4 w-4" />
+                    {isSubmitting ? "Sending..." : "Send message"}
                   </Button>
                 </form>
               </CardContent>
             </Card>
-          </div>
+          </Reveal>
 
-          {/* Contact Information & Map */}
-          <div className="space-y-6">
-            {/* Contact Cards */}
-            <div className="grid grid-cols-2 gap-4">
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-50 text-[#ed6a06]">
-                      <Mail className="h-5 w-5" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-muted-foreground mb-1">
-                        Email Us
-                      </p>
-                      <a
-                        href="mailto:info@kothartechsolutions.com"
-                        className="text-base font-semibold hover:text-[#ed6a06] transition-colors break-all"
-                      >
-                        info@kothartechsolutions.com
-                      </a>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        We'll respond within 24 hours
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+          <Reveal delay={100} className="space-y-5">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <a
+                href="mailto:info@kothartechsolutions.com"
+                className="group rounded-2xl border border-border bg-card p-6 transition-all hover:border-orange/40 hover:shadow-lg"
+              >
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-orange/10 text-orange transition-transform group-hover:scale-110">
+                  <Mail className="h-5 w-5" />
+                </div>
+                <p className="text-sm text-muted-foreground">Email</p>
+                <p className="mt-1 break-all font-display font-semibold group-hover:text-orange">
+                  info@kothartechsolutions.com
+                </p>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Reply within 24 hours
+                </p>
+              </a>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-[#63afc7]">
-                      <Phone className="h-5 w-5" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-muted-foreground mb-1">
-                        Call Us
-                      </p>
-                      <a
-                        href="tel:0435046687"
-                        className="text-base font-semibold hover:text-[#63afc7] transition-colors"
-                      >
-                        0450 466 876
-                      </a>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Mon-Fri: 9AM - 6PM AEST
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <a
+                href="tel:0450466876"
+                className="group rounded-2xl border border-border bg-card p-6 transition-all hover:border-cyan/40 hover:shadow-lg"
+              >
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-cyan/10 text-cyan transition-transform group-hover:scale-110">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <p className="text-sm text-muted-foreground">Call</p>
+                <p className="mt-1 font-display font-semibold group-hover:text-cyan">
+                  0450 466 876
+                </p>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Mon–Fri, 9AM–6PM AEST
+                </p>
+              </a>
             </div>
 
-            {/* Map */}
-            <Card className="border-2 overflow-hidden shadow-lg">
-              <CardContent className="p-0">
-                <div className="aspect-[16/10] w-full">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.4297169015954!2d151.2051283762601!3d-33.878585173222916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12bb69e2955d53%3A0x6ad24eb26655122c!2sKOTHAR%20Educational%20Services!5e0!3m2!1sen!2sau!4v1762216653323!5m2!1sen!2sau"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+            <div className="overflow-hidden rounded-2xl border border-border shadow-lg">
+              <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-4 py-3">
+                <MapPin className="h-4 w-4 text-orange" />
+                <span className="text-sm font-medium">Australia</span>
+              </div>
+              <div className="aspect-[16/11] w-full">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.4297169015954!2d151.2051283762601!3d-33.878585173222916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12bb69e2955d53%3A0x6ad24eb26655122c!2sKOTHAR%20Educational%20Services!5e0!3m2!1sen!2sau!4v1762216653323!5m2!1sen!2sau"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Kothar Tech Solutions location"
+                />
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

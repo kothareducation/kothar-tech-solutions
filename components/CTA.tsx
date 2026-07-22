@@ -1,41 +1,49 @@
 import { Button } from "@/components/ui/button";
-import { Rocket, ArrowRight } from "lucide-react";
+import { ArrowRight, Rocket } from "lucide-react";
+import { Reveal } from "@/components/Reveal";
 
 export function CTA() {
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6">
-            Let's Build Something Together
-          </h2>
-          <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            Have a project in mind? We'd love to hear about it. Schedule a free
-            consultation to discuss your requirements and get a project
-            estimate.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#contact">
-              <Button
-                size="lg"
-                className="group bg-[#ed6a06] hover:bg-[#d45f05] text-white border-0 shadow-xl"
-              >
-                <Rocket className="mr-2 h-4 w-4" />
-                Start Your Project
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </a>
-            <a href="#contact">
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-2 border-[#ed6a06] text-[#ed6a06] hover:bg-orange-50 hover:text-[#ed6a06] bg-transparent"
-              >
-                Schedule Consultation
-              </Button>
-            </a>
+    <section className="relative overflow-hidden py-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-3xl bg-mesh px-8 py-16 text-center text-white sm:px-16">
+            <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
+            <div className="pointer-events-none absolute -left-16 top-0 h-56 w-56 rounded-full bg-orange/30 blur-3xl" />
+            <div className="pointer-events-none absolute -right-10 bottom-0 h-56 w-56 rounded-full bg-cyan/25 blur-3xl" />
+
+            <div className="relative z-10">
+              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">
+                Let&apos;s build something that lasts
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg text-white/65">
+                Tell us about your product, timeline, and goals. We&apos;ll reply
+                with a clear plan and estimate — usually within a day.
+              </p>
+              <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+                <a href="#contact">
+                  <Button
+                    size="lg"
+                    className="group h-12 border-0 bg-orange px-7 text-base text-white shadow-xl shadow-orange/30 hover:bg-orange-deep"
+                  >
+                    <Rocket className="mr-2 h-4 w-4" />
+                    Start your project
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </a>
+                <a href="mailto:info@kothartechsolutions.com">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="h-12 border-white/25 bg-white/5 px-7 text-base text-white hover:bg-white/10 hover:text-white"
+                  >
+                    Email us directly
+                  </Button>
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
